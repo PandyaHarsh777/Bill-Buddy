@@ -1,0 +1,472 @@
+.site-header {
+    text-align: center;
+    padding: 10px 0;
+    background: linear-gradient(90deg, var(--accent-dark), var(--accent-mid));
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    border-bottom: 3px solid var(--accent-light);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.site-header h1 {
+    margin: 0;
+    transition: transform 0.2s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.site-header h1:hover {
+    transform: scale(1.0);
+    color: var(--accent-light);
+}
+
+
+/* Style only the small tagline under header */
+
+.site-header small {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--accent-light);
+    /* soft aqua tone */
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
+    opacity: 0.85;
+}
+
+
+/* === Scroll Support === */
+
+html,
+body {
+    height: 100%;
+    overflow: auto;
+    /* enable vertical scroll */
+}
+
+.calculator-container {
+    max-width: 980px;
+    overflow-x: auto;
+    /* enable horizontal scroll if content overflows */
+}
+
+:root {
+    --bg-1: #f4f7f9;
+    /* soft light gray-blue */
+    --bg-2: #dceef4;
+    /* gentle light aqua */
+    --card-bg: #ffffff;
+    --accent-dark: #00474B;
+    --accent-mid: #26C2AD;
+    --accent-light: #9FE8DF;
+    --muted: #4B5A6A;
+    --muted-2: #7FA8A9;
+    --danger: #fa0606;
+    --radius: 12px;
+    --shadow: 0 15px 30px rgba(0, 71, 75, 0.12);
+    --gap: 20px;
+}
+
+
+/* Reset & base */
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--muted);
+    line-height: 1.5;
+    background: linear-gradient(90deg, var(--bg-1), var(--bg-2));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Scope everything to .calculator-container so nothing else on the page is affected */
+
+.calculator-container {
+    width: min(96%, 980px);
+    margin: 48px auto;
+    background: var(--card-bg);
+    padding: 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: var(--gap);
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* allows safe stacking on narrow viewports */
+}
+
+
+/* Inputs and outputs sections - maintain visual parity with your markup
+   Note: your HTML uses both "output-section" and "outputs-section" + a typo "result-lable".
+   We'll account for both so CSS won't break if markup changes slightly. */
+
+.inputs-section {
+    flex: 1 1 360px;
+    min-width: 260px;
+}
+
+.outputs-section,
+.output-section {
+    flex: 1 1 300px;
+    min-width: 260px;
+}
+
+.form-controls {
+    margin-bottom: 16px
+}
+
+label,
+.form-controls>p {
+    display: block;
+    margin: 0 0 8px 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+
+/* Inputs */
+
+.input-field {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 0;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f6fbfd;
+    /* subtle neutral */
+    outline: none;
+    transition: box-shadow .15s ease, border-color .12s ease;
+}
+
+.input-field::placeholder {
+    color: rgba(75, 90, 106, 0.45);
+}
+
+.input-field:focus {
+    box-shadow: 0 6px 18px rgba(38, 194, 173, 0.12);
+    border-color: var(--accent-mid)
+}
+
+
+/* error state (used by JS via .error) */
+
+.input-field.error {
+    border-color: var(--danger) !important;
+    border-width: 2px;
+    box-shadow: 0 6px 18px rgba(250, 6, 6, 0.08);
+}
+
+
+/* Tip buttons grid */
+
+.tip-buttons-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.tip-percent-btn {
+    appearance: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent-dark);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: transform .08s ease, background-color .12s ease, color .12s ease;
+}
+
+.tip-percent-btn:hover,
+.tip-percent-btn:focus {
+    transform: translateY(-2px);
+    background-color: var(--accent-mid);
+    color: var(--accent-dark);
+    outline: none;
+}
+
+.tip-percent-btn.active {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+}
+
+
+/* Ensure the custom tip input fits nicely inside the grid and is identifiable */
+
+#custom-tip-input {
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+
+/* Make custom tip span all columns on very small screens */
+
+@media (max-width:420px) {
+    .tip-buttons-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    /* keep 3; input below will span */
+    .tip-buttons-container>#custom-tip-input {
+        grid-column: 1 / -1
+    }
+}
+
+
+/* Outputs card (right side) - keep styling resilient to HTML typos */
+
+.outputs-section,
+.output-section {
+    background: var(--accent-dark);
+    padding: 22px;
+    border-radius: 10px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+
+/* result rows */
+
+.result-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-line p {
+    margin: 0;
+    font-weight: 700
+}
+
+.result-line span {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted-2)
+}
+
+
+/* accommodate both spellings: result-label and result-lable */
+
+
+/* Original - might fail */
+
+label {
+    color: #333333;
+    /* Dark gray */
+    background-color: #f0f0f0;
+    /* Light gray - (assuming label has this bg, or page has this bg) */
+}
+
+.result-label p,
+.result-lable p {
+    color: #fff;
+    margin: 0;
+    font-weight: 700
+}
+
+.result-label span,
+.result-lable span {
+    color: var(--muted-2);
+    display: block;
+    font-size: 0.82rem
+}
+
+.result-value span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-mid);
+    text-align: right;
+}
+
+
+/* Reset button in outputs section */
+
+.reset-btn {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: var(--accent-mid);
+    color: var(--accent-dark);
+    transition: transform .08s ease, background-color .12s ease;
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px);
+    background: var(--accent-light)
+}
+
+.reset-btn:active {
+    transform: translateY(0);
+    background: var(--accent-dark);
+    color: var(--accent-light)
+}
+
+
+/* Small-screen responsive adjustments */
+
+@media screen and (max-width: 600px) {
+    .calculator-container {
+        padding: 20px;
+        gap: 18px;
+    }
+    .calculator-container {
+        flex-direction: column;
+        align-items: stretch
+    }
+    .inputs-section,
+    .outputs-section,
+    .output-section {
+        width: 100%;
+        margin: 0;
+        min-width: 0;
+    }
+    .tip-buttons-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    /* ensure custom input sits nicely at end of buttons */
+    .tip-buttons-container>#custom-tip-input {
+        grid-column: 1 / -1
+    }
+    .result-value span {
+        font-size: 1.6rem
+    }
+}
+
+
+/* Accessibility helpers */
+
+.tip-percent-btn:focus,
+.reset-btn:focus,
+.input-field:focus {
+    outline: 3px solid rgba(38, 194, 173, 0.15);
+    outline-offset: 2px
+}
+
+
+/* Utility: visually-hidden (if you need it later) */
+
+.sr-only {
+    position: absolute!important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap
+}
+
+
+/* Small tweak for the stray malformed HTML tags in your markup: keep typography stable */
+
+.outputs-section p,
+.outputs-section span {
+    line-height: 1.1
+}
+
+input[type="number"]:focus,
+.tip-percent-btn:focus,
+#custom-tip-input:focus,
+#reset-button:focus {
+    outline: 2px solid dodgerblue;
+}
+
+
+/* End of file */
+
+
+/* === Footer Styling (card-style, matches calculator) === */
+
+.footer {
+    margin: 40px auto 20px auto;
+    /* space above and below */
+    max-width: 980px;
+    /* same width as calculator */
+    background: var(--card-bg);
+    /* white card background */
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.footer-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+
+/* Social icons */
+
+.footer .social {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+}
+
+.footer .social a img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-dark);
+    padding: 6px;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+
+/* Hover effect */
+
+.footer .social a img:hover {
+    transform: scale(1.1);
+    background: var(--accent-mid);
+}
+
+
+/* Copyright text */
+
+.footer .copyright p {
+    margin: 2px 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 600px) {
+    .footer {
+        padding: 14px;
+    }
+    .footer .social a img {
+        width: 28px;
+        height: 28px;
+    }
+}

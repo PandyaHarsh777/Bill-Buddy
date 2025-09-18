@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip-calculator</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header class="site-header">
+        <h1>Bill-Buddy</h1>
+        <small>a tip calculator</small>
+    </header>
+    <div class="calculator-container" id="calculator-container">
+        <div class="inputs-section">
+            <div class="form-controls">
+                <label for="bill">bill</label>
+                <input type="number" id="bill-input" class="input-field" placeholder="enter a bill amount" min="0">
+            </div>
+            <div class="form-controls">
+                <label><p>select tip %</p></label>
+
+                <div class="tip-buttons-container">
+                    <button class="tip-percent-btn" value="5" data-tip="5">5%</button>
+                    <button class="tip-percent-btn" value="10" data-tip="10">10%</button>
+                    <button class="tip-percent-btn" value="15" data-tip="15">15%</button>
+                    <button class="tip-percent-btn" value="20" data-tip="20">20%</button>
+                    <input type="number" id="custom-tip-input" class="input-field" placeholder="custom tip perstange" min="0">
+                    <!--"tip-custom-input" remove from class name-->
+                </div>
+            </div>
+            <div class="form-controls">
+                <label for="num-people">Number Of People</label>
+                <input type="number" min="1" placeholder="enetr a Number Of people" id="people-input" class="input-field">
+            </div>
+        </div>
+        <!--end of input section-->
+        <!--start a output section-->
+        <div class="outputs-section">
+            <div class="result-line">
+                <div class="result-lable">
+                    <p>Tip Amount</p>
+                    <span>/Person</span>
+                </div>
+            </div>
+            <div class="result-value">
+                <span id="tip-amount-display" aria-live="polite">$0.00</span>
+            </div>
+            <!--display area for total amount per person-->
+            <div class="result-line">
+                <div class="result-lable">
+                    <p>Total</p>
+                    <span>/person</span>
+                </div>
+                <div class="result-value">
+                    <span id="total-amount-display" aria-live="polite">$0.00</span>
+                </div>
+                <!--end of display area for total amount per person-->
+            </div>
+            <button type="reset" class="reset-btn" id="reset-button">RESET</button>
+            <!--end of output-section-->
+
+        </div>
+        <section class="footer">
+            <div class="footer-area">
+
+                <div class="social">
+                    <a href="https://www.linkedin.com/in/harsh-pandya-42bb4a247?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+                        <img src="img\linkdin.png" alt="linkedin-logo">
+                    </a>
+                    <a href="https://www.instagram.com/harsh_pandya_7777?igsh=Z2pxYTE2MHI2dzAx">
+                        <img src="img\insta.png" alt="insta-logo">
+                    </a>
+                    <a href="https://x.com/HarshPa61264160">
+                        <img src="img\x.png" alt="x-logo">
+                    </a>
+                    <a href="https://github.com/pandyahxduwd">
+                        <img src="img\git.png" alt="git-logo">
+                    </a>
+                    <a href="https://www.facebook.com/harsh.pandya.9465177">
+                        <!--sequre this link befor post-->
+                        <img src="img\fb.png" alt="fb-logo">
+                    </a>
+                    <a href="https://youtube.com/@harshpandya5832?si=MVdxcNbt0mujKgNc">
+                        <img src="img\yt.png" alt="yt-logo">
+                    </a>
+                    <a href="#">
+                        <img src="img\telegram.png" alt="telegram-logo">
+                    </a>
+
+                </div>
+                <div class="copyright">
+                    <p>we r here for u!</p>
+                    <p><small>&copy;all rights reserved</small></p>
+                    <p><i>develop by harsh pandya</i></p>
+                </div>
+
+            </div>
+        </section>
+        <!--end of main div calculator-container-->
+        <!--js link-->
+        <script src="script.js" defer></script>
+</body>
+
+</html>
